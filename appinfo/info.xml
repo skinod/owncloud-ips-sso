@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<info>
+	<id>user_ipsconnect</id>
+	<name>IPS Connect</name>
+	<description>Authenticate and SSO users with IPS Connect</description>
+	<licence>AGPL</licence>
+	<author>Sijad</author>
+	<website>http://skinod.com</website>
+	<require>5</require>
+	<types>
+		<authentication/>
+		<prelogin/>
+	</types>
+</info>
