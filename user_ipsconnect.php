@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Copyright (c) 2014 Sajjad Hashemian <info@skinod.com>
+ * This file is licensed under the Affero General Public License version 3 or
+ * later.
+ * See the COPYING-README file.
+ */
 
 class OC_USER_IPSCONNECT extends OC_User_Backend {
 	public function deleteUser($uid) {
