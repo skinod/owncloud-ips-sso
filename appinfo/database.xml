@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<database>
+
+ <name>*dbname*</name>
+ <create>false</create>
+ <overwrite>false</overwrite>
+
+ <charset>utf8</charset>
+
+ <table>
+
+  <name>*dbprefix*ips_connect_ids</name>
+
+  <declaration>
+   <field>
+    <name>uid</name>
+    <type>text</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>64</length>
+   </field>
+   <field>
+    <name>ipsconnect_id</name>
+    <type>integer</type>
+    <default>0</default>
+    <notnull>true</notnull>
+    <unsigned>false</unsigned>
+    <length>8</length>
+   </field>
+  </declaration>
+
+ </table>
+
+</database>

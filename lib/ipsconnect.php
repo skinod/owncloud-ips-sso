@@ -50,7 +50,7 @@ class IpsConnect {
 				\OC_User::setDisplayName($check['connect_username']);
 				\OC_User::getUserSession()->setLoginName($check['connect_username']);
 			}
-		}elseif(\OC_User::isLoggedIn() and $_COOKIE[ 'ipsconnect_' . md5( self::$masterUrl ) ] == 0 ) {
+		}elseif(\OC_User::isLoggedIn() and isset( $_COOKIE[ 'ipsconnect_' . md5( self::$masterUrl ) ] ) and $_COOKIE[ 'ipsconnect_' . md5( self::$masterUrl ) ] == 0 ) {
 			\OC_User::logout();
 		}
 	}
@@ -85,8 +85,12 @@ class IpsConnect {
 
 	public static function setConnectID($uid, $ipsconnect_id) {
 		if ( \OC_User::userExists( $uid ) == true ) {
-			$query = \OC_DB::prepare('UPDATE `*PREFIX*users` SET `ipsconnect_id` = ? WHERE LOWER(`uid`) = LOWER(?)');
+			$query = \OC_DB::prepare('UPDATE `*PREFIX*ips_connect_ids` SET `ipsconnect_id` = ? WHERE LOWER(`uid`) = LOWER(?)');
 			$result = $query->execute(array($ipsconnect_id,$uid));
+			if(!$result) {
+				$query = \OC_DB::prepare('INSERT INTO `*PREFIX*ips_connect_ids` (`uid`, `ipsconnect_id`) VALUES (?, ?)');
+				$query->execute(array($uid, $ipsconnect_id));
+			}
 			return true;
 		}
 		return false;
@@ -94,19 +98,10 @@ class IpsConnect {
 
 	public static function getConnectID($uid) {
 		if ( \OC_User::userExists( $uid ) == true ) {
-			$query = \OC_DB::prepare('SELECT `ipsconnect_id` FROM `*PREFIX*users` WHERE LOWER(`uid`) = LOWER(?)');
+			$query = \OC_DB::prepare('SELECT `ipsconnect_id` FROM `*PREFIX*ips_connect_ids` WHERE LOWER(`uid`) = LOWER(?)');
 			$row = $query->execute(array($uid))->fetchRow();
 			return $row['ipsconnect_id']?$row['ipsconnect_id']:false;
 		}
 		return false;
 	}
 }
-
-
-
-
-
-
-
-
-
