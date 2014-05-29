@@ -38,7 +38,7 @@ class Hooks {
 			$masterUrl = \OC_Config::getValue( "user_ipsconnect_master_url" );
 			$masterKey = \OC_Config::getValue( "user_ipsconnect_master_key" );
 			$redirect = \OC_Helper::makeURLAbsolute(\OC::$WEBROOT) . '?logout=true&nipc=1';
-			$connect_id = \OCA\user_ipsconnect\ipsconnect::getConnectID(\OC::$session->get('user_id'));
+			$connect_id = \OCA\user_ipsconnect\ipsconnect::getConnectID(\OC_user::getUser());
 			if($connect_id) {
 				header( 'Location: ' . $masterUrl . '?' . html_entity_decode(http_build_query( array( 'act' => 'logout', 'id' => $connect_id, 'key' => md5( $masterKey . $connect_id ), 'redirect' => base64_encode( $redirect ), 'redirectHash' => md5( $masterKey . base64_encode( $redirect ) ) ) ) ));
 				exit;
